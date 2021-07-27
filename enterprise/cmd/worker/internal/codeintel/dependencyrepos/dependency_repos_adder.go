@@ -30,10 +30,11 @@ func NewDependencyRepoAdder(
 	}
 
 	return dbworker.NewWorker(rootContext, workerStore, handler, workerutil.WorkerOptions{
-		Name:        "code_intel_dependency_repo_adding_worker",
-		NumHandlers: numProcessorRoutines,
-		Interval:    pollInterval,
-		Metrics:     workerMetrics,
+		Name:              "precise_code_intel_dependency_repo_adding_worker",
+		NumHandlers:       numProcessorRoutines,
+		Interval:          pollInterval,
+		Metrics:           workerMetrics,
+		HeartbeatInterval: 1 * time.Second,
 	})
 }
 

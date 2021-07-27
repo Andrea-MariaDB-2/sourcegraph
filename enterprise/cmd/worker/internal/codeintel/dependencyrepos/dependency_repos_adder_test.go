@@ -27,7 +27,7 @@ func TestDependencyReposAddingHandlerJVM(t *testing.T) {
 			Package: lsifstore.Package{
 				DumpID:  5,
 				Scheme:  "semanticdb",
-				Name:    "maven/jdk/8",
+				Name:    "jdk",
 				Version: "8",
 			},
 		}, true, nil)
@@ -44,6 +44,7 @@ func TestDependencyReposAddingHandlerJVM(t *testing.T) {
 			t.Fatalf("unexpected error adding dependency repo: %s", err)
 		}
 
+		//  this is 1 irrespective of the number of repos added
 		if len(mockDBStore.InsertCloneableDependencyReposFunc.History()) != 1 {
 			t.Errorf("unexpected number of inserts. wanted=%d, got=%d\n", 1, len(mockDBStore.InsertCloneableDependencyReposFunc.History()))
 		}

@@ -2,7 +2,6 @@ package codeintel
 
 import (
 	"context"
-	"time"
 
 	"github.com/inconshreveable/log15"
 	"github.com/opentracing/opentracing-go"
@@ -26,7 +25,7 @@ func NewDependencyRepoAddingJob() shared.Job {
 }
 
 func (j *dependencyRepoAddingJob) Config() []env.Config {
-	return []env.Config{}
+	return []env.Config{dependencyRepoAddingConfigInst}
 }
 
 func (j *dependencyRepoAddingJob) Routines(ctx context.Context) ([]goroutine.BackgroundRoutine, error) {
@@ -53,8 +52,8 @@ func (j *dependencyRepoAddingJob) Routines(ctx context.Context) ([]goroutine.Bac
 		dependencyrepos.NewDependencyRepoAdder(
 			dbStoreShim,
 			dbstore.WorkerutilDependencyRepoAddingJobStore(dbStore, observationContext),
-			time.Minute*1,
-			1,
+			dependencyRepoAddingConfigInst.DependencyRepoAddingPollInterval,
+			dependencyRepoAddingConfigInst.DependencyRepoAddingConcurrency,
 			metrics),
 	}, nil
 }
