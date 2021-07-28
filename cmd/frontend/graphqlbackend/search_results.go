@@ -1545,7 +1545,7 @@ func (r *searchResolver) doResults(ctx context.Context, args *search.TextParamet
 	}
 
 	if args.ResultTypes.Has(result.TypeStructural) {
-		isDefaultStructuralSearch := args.PatternInfo.IsStructuralPat && args.PatternInfo.FileMatchLimit == search.DefaultMaxSearchResults
+		isDefaultStructuralSearch := args.PatternInfo.FileMatchLimit == search.DefaultMaxSearchResults
 		if isDefaultStructuralSearch {
 			wg := waitGroup(true)
 			wg.Add(1)
